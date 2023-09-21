@@ -8,7 +8,6 @@ const initialState = {
 }
 
 //Login user
-
 export const loginUser = createAsyncThunk(
     "auth/loginUser",
     async (credentials, { rejectedWithValue }) => {
@@ -18,6 +17,25 @@ export const loginUser = createAsyncThunk(
             localStorage.setItem("prof_token", res.data.prof_token);
             return res.data;
         }catch (err) {
+            return rejectedWithValue(err.message);
+        }
+    }
+)
+
+//Logout User
+export const logoutUser = createAsyncThunk(
+    "auth/logoutUser",
+    async (credentials, { rejectedWithValue }) => {
+        try {
+            const res = await axios.post(`/logout`, credentials);
+
+            localStorage.removeItem("prof_token");
+            localStorage.removeItem("persist:root");
+          
+            
+
+            return res.data;
+        } catch (err) {
             return rejectedWithValue(err.message);
         }
     }
@@ -58,6 +76,33 @@ const authSlice = createSlice({
                 isError: true
             }
         });
+
+        //logoutUser
+        builder.addCase(logoutUser.pending, (state, action) => {
+            return {
+                ...state,
+                user: [],
+                isLoading: false,
+                token: null,
+            }
+        });
+        builder.addCase(logoutUser.fulfilled, (state, action) => {
+            return {
+                ...state,
+                user: [],
+                isLoading: false,
+                token: null,
+            }
+        });
+        builder.addCase(logoutUser.rejected, (state, action) => {
+            return {
+                ...state,
+                isLoading: false,
+                token: null,
+                isError: false
+            }
+        });
+
     }
 });
 

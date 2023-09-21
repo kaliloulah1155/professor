@@ -5,6 +5,7 @@ import { Login } from "./components/Login";
 import { Register } from "./components/Register";
 import { Dashboard } from './components/Dashboard';
 import { isAuthenticated } from "./helpers/Auth_guard";
+import { Espace } from "./components/Espace";
  
 
 
@@ -13,15 +14,21 @@ import { isAuthenticated } from "./helpers/Auth_guard";
 
 function App() {
 
+
+  
   return (
     <div className="bg-slate-100 min-h-screen">
       <Navbar />
-      <div className="max-w-7xl mx-auto md:h-screen lg:h-auto overflow-y-auto">
+      <div className="max-w-full mx-auto md:h-screen lg:h-auto overflow-y-auto">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
             path="/dashboard"
             element={isAuthenticated() ? <Dashboard /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/espace"
+            element={isAuthenticated() ? <Espace /> : <Navigate to="/login" />}
           />
           <Route
             path="/login"
@@ -31,6 +38,7 @@ function App() {
             path="/register"
             element={isAuthenticated() ? <Navigate to="/dashboard" /> : <Register />}
           />
+          <Route path="/logout" element={<Navigate to="/" />} />
           <Route
             path="*"
             element={<Navigate to="/" replace />}

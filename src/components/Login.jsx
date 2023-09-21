@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Link, redirect, useLocation } from 'react-router-dom';
+import React, {  useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Logo } from '../layouts/Logo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import {  loginUser } from "../features/auth/authSlice";
 
